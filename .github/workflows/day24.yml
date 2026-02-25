@@ -6,8 +6,6 @@ on:
 
 jobs:
 
-# ---------- BUILD ----------
-
  build:
 
    runs-on: ubuntu-latest
@@ -17,7 +15,7 @@ jobs:
    - name: Checkout Code
      uses: actions/checkout@v3
 
-   - name: Install NodeJS
+   - name: Setup Node
      uses: actions/setup-node@v3
      with:
        node-version: 18
@@ -25,10 +23,17 @@ jobs:
    - name: Install Dependencies
      run: npm install
 
+   - name: Run Test
+     run: npm test
+
    - name: Docker Build
      run: docker build -t todo-app .
 
-# ---------- TEST ----------
+   - name: Upload Artifact
+     uses: actions/upload-artifact@v4
+     with:
+       name: project-files
+       path: .
 
  test:
 
@@ -38,12 +43,7 @@ jobs:
 
    steps:
 
-   - uses: actions/checkout@v3
-
-   - name: Run Tests
-     run: npm test
-
-# ---------- DEPLOY ----------
+   - run: echo "Test Stage Passed"
 
  deploy:
 
@@ -53,5 +53,4 @@ jobs:
 
    steps:
 
-   - name: Deploy Application
-     run: echo "Deployment Successful"
+   - run: echo "Deployment Successful"
