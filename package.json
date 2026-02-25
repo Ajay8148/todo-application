@@ -1,9 +1,12 @@
 {
-"name":"todo-app",
-"version":"1.0.0",
-"scripts":{
-"test":"echo Test Passed"
-},
-"dependencies":{
-"express":"^4.18.2"
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "Day24 CI/CD Pipeline Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo Test Passed"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
