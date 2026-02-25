@@ -1,0 +1,57 @@
+name: Day24 Pipeline
+
+on:
+ push:
+   branches: [ main ]
+
+jobs:
+
+# ---------- BUILD ----------
+
+ build:
+
+   runs-on: ubuntu-latest
+
+   steps:
+
+   - name: Checkout Code
+     uses: actions/checkout@v3
+
+   - name: Install NodeJS
+     uses: actions/setup-node@v3
+     with:
+       node-version: 18
+
+   - name: Install Dependencies
+     run: npm install
+
+   - name: Docker Build
+     run: docker build -t todo-app .
+
+# ---------- TEST ----------
+
+ test:
+
+   needs: build
+
+   runs-on: ubuntu-latest
+
+   steps:
+
+   - uses: actions/checkout@v3
+
+   - name: Run Tests
+     run: npm test
+
+# ---------- DEPLOY ----------
+
+ deploy:
+
+   needs: test
+
+   runs-on: ubuntu-latest
+
+   steps:
+
+   - name: Deploy Application
+     run: echo "Deployment Successful"
